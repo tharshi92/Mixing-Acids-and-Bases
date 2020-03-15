@@ -24,13 +24,14 @@ eqH3OConc = np.max(np.roots(polyCoeff))
 
 # Calculate Important Quantities
 eqOHConc = waterK / eqH3OConc
-eqAConcs = eqAcidAnionConc + eqH3OConc - eqOHConc
-eqHAConc = eqH3OConc * eqAConcs / acidK
+eqAConc = eqAcidAnionConc + eqH3OConc - eqOHConc
+eqHAConc = eqH3OConc * eqAConc / acidK
 
 pH = - np.log10(eqH3OConc)
 pOH = - np.log10(eqOHConc)
 pHA = - np.log10(eqHAConc)
-pA = - np.log10(eqAConcs)
+pA = - np.log10(eqAConc)
 
 # Return Result
+print("At equilibrium: [H3O+] = {0:.2f} mol, [OH-] = {1:.2f} mol, [HA] = {2:.2f} mol, [A-] = {3:.2f} mol.".format(eqH3OConc, eqOHConc, eqHAConc, eqAConc))
 print("At equilibrium: pH = {0:.2f}, pOH = {1:.2f}, pHA = {2:.2f}, pA = {3:.2f}".format(pH, pOH, pHA, pA))
