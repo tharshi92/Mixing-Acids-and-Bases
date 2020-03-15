@@ -27,8 +27,9 @@ eqAcidAnionConcs = initBufferConc * initBufferVol / totalVols
 
 # Create cubic coeffcients
 quadraticTerms = acidConstant + eqBaseCationConcs + eqAcidAnionConcs
-linearTerms = -(waterConstant + acidConstant * ((initAcidConc * initAcidVol / totalVols) - eqBaseCationConcs))
-constant = - acidConstant * waterConstant
+linearTerms = -(waterConstant + acidConstant * (
+	(initAcidConc * initAcidVol / totalVols) - eqBaseCationConcs))
+constant = -acidConstant * waterConstant
 
 # Solve for every base volume
 eqH3OConcs = np.linspace(minVol, maxVol, numPoints)
@@ -45,23 +46,24 @@ eqAConcs = eqBaseCationConcs + eqAcidAnionConcs + eqH3OConcs - eqOHConcs
 
 eqHAConcs = eqH3OConcs * eqAConcs / acidConstant
 
-pHs = - np.log10(eqH3OConcs)
-pOHs = - np.log10(eqOHConcs)
-pHAs = - np.log10(eqHAConcs)
-pAs = - np.log10(eqAConcs)
+pHs = -np.log10(eqH3OConcs)
+pOHs = -np.log10(eqOHConcs)
+pHAs = -np.log10(eqHAConcs)
+pAs = -np.log10(eqAConcs)
 
 #print(np.argwhere(pHs > 9))
-print("The pH at the equivalence point is " + str(pHs[(numPoints - 1)/2]) + ".")
+print("The pH at the equivalence point is " + str(pHs[(numPoints - 1) / 2]) +
+						".")
 
 # Plot Results
 plt.figure(1)
 plt.title('Power Transformations vs Base Added (mL)')
-plt.plot(baseVols, pHs, 'r', label = "pH")
-plt.plot(baseVols, pOHs, 'c', label = "pOH")
-plt.plot(baseVols, pHAs, 'g', label = "pHA")
-plt.plot(baseVols, pAs, 'm', label = "pA")
+plt.plot(baseVols, pHs, 'r', label="pH")
+plt.plot(baseVols, pOHs, 'c', label="pOH")
+plt.plot(baseVols, pHAs, 'g', label="pHA")
+plt.plot(baseVols, pAs, 'm', label="pA")
 plt.grid('on')
-plt.legend(loc = 0)
+plt.legend(loc=0)
 plt.savefig('powerTransforms.png')
 plt.show()
 
